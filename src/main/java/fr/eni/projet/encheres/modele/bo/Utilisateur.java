@@ -2,6 +2,7 @@ package fr.eni.projet.encheres.modele.bo;
 
 public class Utilisateur {
 
+	private int noUtilisateur;
 	private String pseudo;
 	private String prenom;
 	private String telephone;
@@ -16,7 +17,6 @@ public class Utilisateur {
 	
 	public Utilisateur() {
 	}	
-
 	
 	// Méthode incomplète pour l'instant on verra comment doivent être gérés le crédit et l'admin
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
@@ -33,6 +33,14 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
+	public int getNoUtilisateur() {
+		return noUtilisateur;
+	}
+
+	public void setNoUtilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
+	}
+	
 	public String getPseudo() {
 		return pseudo;
 	}
@@ -119,6 +127,14 @@ public class Utilisateur {
 
 	public void setAdministrateur(int administrateur) {
 		this.administrateur = administrateur;
+	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", prenom=" + prenom
+				+ ", telephone=" + telephone + ", codePostal=" + codePostal + ", motDePasse=" + motDePasse + ", nom="
+				+ nom + ", email=" + email + ", rue=" + rue + ", ville=" + ville + ", credit=" + credit
+				+ ", administrateur=" + administrateur + "]";
 	}
 	
 	
