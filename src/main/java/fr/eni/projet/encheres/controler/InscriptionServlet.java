@@ -41,18 +41,33 @@ public class InscriptionServlet extends HttpServlet {
 		String ville = request.getParameter("ville");
 		String confirmation = request.getParameter("confirmation");
 		
-		System.out.printf("%s %s %s %s %s %s %s %s %s %s \n", pseudo, prenom, telephone, codePostal, motDePasse, nom, email, rue, ville, confirmation);
 		
-		if (utilisateurManager.verifConfirmation(motDePasse, confirmation)) {
-			Utilisateur utilisateur = utilisateurManager.creerUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
-			request.setAttribute("utilisateur", utilisateur);
-			this.getServletContext().getRequestDispatcher("/inscription-reussie.jsp").forward(request, response);
-			
-		}else {
-			String erreurConfirmation = "La confirmation de votre mot de passe est différente de votre mot de passe";
-			request.setAttribute("erreurConfirmation", erreurConfirmation);
-			this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);
+		
+		switch (utilisateurManager.verifNouvelUtilisateur(pseudo, email)) {
+			case 0 : 	boolean champsRemplits = utilisateurManager.verifChampsVides(pseudo, nom, prenom, email, rue, codePostal, ville, motDePasse);
+						boolean verifConfirmation = utilisateurManager.verifConfirmation(motDePasse, confirmation); 
+						if (champsRemplits && verifConfirmation) {
+							Utilisateur utilisateur = utilisateurManager.creerUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
+							request.setAttribute("utilisateur", utilisateur);
+							this.getServletContext().getRequestDispatcher("/inscription-reussie.jsp").forward(request, response);	
+						} else {
+							String erreurFormulaire;
+							if (!champsRemplits) erreurFormulaire = "Vous devez remplir tous les champs requis (*)";
+							else erreurFormulaire = "La confirmation de votre mot de passe est différente de votre mot de passe";
+							request.setAttribute("erreurFormulaire", erreurFormulaire);
+							this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);
+						} break;
+			case 1 : 	String erreurEmail = "Il existe déjà un compte associé à cet email";
+						request.setAttribute("erreurEmail", erreurEmail);
+						this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);break;
+			case 2 :	String erreurPseudo = "Pseudo déjà utilisé";
+						request.setAttribute("erreurPseudo", erreurPseudo);
+						this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);break;
+			default : 	String erreurBD = "Impossible d'accéder à la Base de Donnée";
+						request.setAttribute("erreurBD", erreurBD);
+						this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);
 		}
+		
 		
 	}
 

@@ -6,4 +6,6 @@ public interface UtilisateurDAO {
 
 	Utilisateur creerUtilisateur(Utilisateur utilisateur);
 
+	int verifNouvelUtilisateur(String pseudo, String email);
+
 }
