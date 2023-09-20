@@ -6,6 +6,9 @@ public interface UtilisateurDAO {
 
 	Utilisateur creerUtilisateur(Utilisateur utilisateur);
 
-	int verifNouvelUtilisateur(String pseudo, String email);
+	Utilisateur selectByIdentifiant(String pseudo, String email);
+	Utilisateur selectByIdentifiant(String identifiant);
+	
+	Utilisateur connection(String identifiant, String motDePasse);
 
 }

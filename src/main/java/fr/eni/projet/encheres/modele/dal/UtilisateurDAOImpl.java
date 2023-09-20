@@ -11,7 +11,6 @@ import fr.eni.projet.encheres.modele.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
-	@Override
 	public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
 		
 		try (Connection cnx = ConnectionProvider.getConnection()){
@@ -41,31 +40,60 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		return utilisateur;
 	}
 
-	@Override
-	public int verifNouvelUtilisateur(String pseudo, String email) {
-		int result = 3;
+	public Utilisateur selectByIdentifiant(String pseudo, String email) {
+		Utilisateur utilisateur = new Utilisateur();
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			
 			PreparedStatement stmt = cnx.prepareStatement("SELECT * FROM UTILISATEURS WHERE pseudo = ? or email = ?");
 			stmt.setString(1, pseudo);
 			stmt.setString(2, email);
 			ResultSet rs = stmt.executeQuery();
-			if (!rs.next()) {
-				//pas de match trouvé
-				result = 0;
-			}else if (rs.getString("email").equals(email)) {
-				//email existant
-				result = 1;
-			}else {
-				//Pseudo déjà utilisé
-				result = 2;
-			}
 			
+			utilisateur = getUtilisateur(utilisateur, rs);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return utilisateur;
+	}
+	
+	public Utilisateur selectByIdentifiant(String identifiant) {
+		return selectByIdentifiant( identifiant, identifiant);
 	}
 
+	public Utilisateur connection(String identifiant, String motDePasse) {
+		Utilisateur utilisateur = new Utilisateur();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			// On fait un select avec soit le pseudo soit l'identifiant MAIS AUSSI AVEC le bon mdp
+			PreparedStatement pstmt = cnx.prepareStatement("SELECT * FROM utilisateurs WHERE (pseudo = ? OR email = ?)  AND mot_de_passe=? ");
+			pstmt.setString(1, identifiant);
+			pstmt.setString(2, identifiant);
+			pstmt.setString(3, motDePasse);
+			ResultSet rs = pstmt.executeQuery();
+			//On est censé récupérer un seul utilisateur
+			
+			utilisateur = getUtilisateur(utilisateur, rs);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(utilisateur);
+		return utilisateur;
+	}
+	
+	private Utilisateur getUtilisateur(Utilisateur utilisateur, ResultSet rs) throws SQLException {
+		if (rs.next()) {
+			utilisateur.setNoUtilisateur(rs.getInt(1));
+			utilisateur.setPseudo(rs.getString(2));
+			utilisateur.setNom(rs.getString(3));
+			utilisateur.setPrenom(rs.getString(4));
+			utilisateur.setEmail(rs.getString(5));
+			utilisateur.setTelephone(rs.getString(6));
+			utilisateur.setRue(rs.getString(7));
+			utilisateur.setCodePostal(rs.getString(8));
+			utilisateur.setVille(rs.getString(9));
+		} else utilisateur = null;
+		return utilisateur;
+	}
+		
 }
