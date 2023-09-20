@@ -17,5 +17,6 @@
 		<input type="submit" value="Connection">
 
 		</form>
+		<p>${erreurID }<p>
 </body>
 </html>

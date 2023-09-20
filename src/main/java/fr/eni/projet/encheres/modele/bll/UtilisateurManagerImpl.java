@@ -35,13 +35,30 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 	}
 	
 	public int verifNouvelUtilisateur(String pseudo, String email) {
-		return utilisateurDAO.verifNouvelUtilisateur(pseudo, email);
+		int resultat = 3;
+		Utilisateur utilisateur = utilisateurDAO.selectByIdentifiant(pseudo, email);
+		if (utilisateur == null) {
+			//pas de match trouvé
+			resultat = 0;
+		}else if (utilisateur.getEmail().equals(email)) {
+			//email existant
+			resultat = 1;
+		}else {
+			//Pseudo déjà utilisé
+			resultat = 2;
+		}
+		return resultat;
 	}
 	
 	public Utilisateur creerUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse) {
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
 		return utilisateurDAO.creerUtilisateur(utilisateur);
+	}
+	
+	public Utilisateur connection(String identifiant, String motDePasse) {
+		// On fait appel à la DAL pour récupérer l'info dans la BD, il n'y a pas d'acction particulière requise par la BLL
+		return utilisateurDAO.connection(identifiant, motDePasse);
 	}
 
 
