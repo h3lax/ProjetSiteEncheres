@@ -10,7 +10,7 @@
 
 <h1>Bienvenue ${utilisateur.prenom} </h1>
 <p>Votre Compte a été créé avec succès!<p>
-<a href="#">Connectez-vous</a>
+<a href="connection">Connectez-vous</a>
 
 <!-- retour pour tester mais devra être retiré -->
 <a href="inscription">RETOUR INSCRITPION TESTS DEV</a>

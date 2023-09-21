@@ -11,6 +11,8 @@
 <h1>Bien Connecté ${utilisateur.getPseudo()}</h1>
 
 <a href="connection">retour à la connection</a>
+<a href="acceuil.jsp"> Acceuil</a>
+<a href="deconnection">Deconnection</a>
 
 </body>
 </html>
