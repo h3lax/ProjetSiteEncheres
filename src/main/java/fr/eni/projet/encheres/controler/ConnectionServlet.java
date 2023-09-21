@@ -33,8 +33,8 @@ public class ConnectionServlet extends HttpServlet {
 		// sinon on renvoit à la page de connexion (il est possible que l'utilisateur ait fait une erreur de frappe?
 		Utilisateur utilisateur = utilisateurManager.connection(identifiant, motDePasse);
 		if (utilisateur != null) {
-			request.setAttribute("utilisateur", utilisateur);
-			this.getServletContext().getRequestDispatcher("/testconnection.jsp").forward(request, response);
+			request.getSession().setAttribute("utilisateur",utilisateur);
+			this.getServletContext().getRequestDispatcher("/acceuil.jsp").forward(request, response);
 		}else {
 			String erreurID = "Identifiant ou mot de passe inconnu";
 			request.setAttribute("erreurID", erreurID);
