@@ -14,7 +14,9 @@ public interface UtilisateurManager {
 	Utilisateur creerUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse);
 	
-	public Utilisateur connection(String identifiant, String motDePasse);
+	Utilisateur connection(String identifiant, String motDePasse);
+
+	Utilisateur selectByIndentifiant(String identifiant);
 	
 
 }

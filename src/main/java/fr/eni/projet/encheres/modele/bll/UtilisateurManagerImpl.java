@@ -61,5 +61,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		return utilisateurDAO.connection(identifiant, motDePasse);
 	}
 
+	@Override
+	public Utilisateur selectByIndentifiant(String identifiant) {
+		return utilisateurDAO.selectByIdentifiant(identifiant);
+	}
+
 
 }
