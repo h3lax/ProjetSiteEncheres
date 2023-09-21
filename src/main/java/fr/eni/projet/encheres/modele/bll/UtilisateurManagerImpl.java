@@ -66,5 +66,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		return utilisateurDAO.selectByIdentifiant(identifiant);
 	}
 
+	@Override
+	public void modifierUtilisateur() {
+		utilisateurDAO.modifierUtilisateur();
+	}
+
 
 }

@@ -45,7 +45,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		String confirmation = request.getParameter("confirmation");
 		String action = request.getParameter("action");
 		
-		System.out.println(action);
+		utilisateurManager.modifierUtilisateur();
 		
 		
 	}

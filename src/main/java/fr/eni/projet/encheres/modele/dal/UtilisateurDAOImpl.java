@@ -17,15 +17,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			
 			PreparedStatement stmt = cnx.prepareStatement("INSERT INTO UTILISATEURS values (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
-			stmt.setString(1, utilisateur.getPseudo());
-			stmt.setString(2, utilisateur.getNom());
-			stmt.setString(3, utilisateur.getPrenom());
-			stmt.setString(4, utilisateur.getEmail());
-			stmt.setString(5, utilisateur.getTelephone());
-			stmt.setString(6, utilisateur.getRue());
-			stmt.setString(7, utilisateur.getCodePostal());
-			stmt.setString(8, utilisateur.getVille());
-			stmt.setString(9, utilisateur.getMotDePasse());
+			setUtilisateur(utilisateur, stmt);
 			stmt.executeUpdate();
 			
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -81,6 +73,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		return utilisateur;
 	}
 	
+	@Override
+	public void modifierUtilisateur() {
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			String requete = "UPDATE Utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			setUtilisateur(utilisateur, pstmt);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private Utilisateur getUtilisateur(Utilisateur utilisateur, ResultSet rs) throws SQLException {
 		if (rs.next()) {
 			utilisateur.setNoUtilisateur(rs.getInt(1));
@@ -94,6 +98,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			utilisateur.setVille(rs.getString(9));
 		} else utilisateur = null;
 		return utilisateur;
+	}
+	
+	private void setUtilisateur(Utilisateur utilisateur, PreparedStatement stmt) throws SQLException {
+		stmt.setString(1, utilisateur.getPseudo());
+		stmt.setString(2, utilisateur.getNom());
+		stmt.setString(3, utilisateur.getPrenom());
+		stmt.setString(4, utilisateur.getEmail());
+		stmt.setString(5, utilisateur.getTelephone());
+		stmt.setString(6, utilisateur.getRue());
+		stmt.setString(7, utilisateur.getCodePostal());
+		stmt.setString(8, utilisateur.getVille());
+		stmt.setString(9, utilisateur.getMotDePasse());
 	}
 		
 }

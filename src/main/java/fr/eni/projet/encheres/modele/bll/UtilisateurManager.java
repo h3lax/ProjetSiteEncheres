@@ -17,6 +17,8 @@ public interface UtilisateurManager {
 	Utilisateur connection(String identifiant, String motDePasse);
 
 	Utilisateur selectByIndentifiant(String identifiant);
+
+	void modifierUtilisateur();
 	
 
 }

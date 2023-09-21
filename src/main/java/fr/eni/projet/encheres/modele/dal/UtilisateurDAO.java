@@ -11,4 +11,6 @@ public interface UtilisateurDAO {
 	
 	Utilisateur connection(String identifiant, String motDePasse);
 
+	void modifierUtilisateur();
+
 }
