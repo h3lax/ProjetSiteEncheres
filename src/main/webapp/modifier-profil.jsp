@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Modifier mon profil</title>
 </head>
 <body>
 	<h1>Mon profil</h1>
@@ -26,7 +26,7 @@
 			<label for="ville">Ville :</label><input type="text" id="ville" name="ville" maxlength="30">
 			<label for="confirmation">Confirmation :</label><input type="password" id="confirmation" name="confirmation" maxlength="30">
 			</div>
-			<!--  <p> ${erreurFormulaire}${erreurEmail}${erreurPseudo}${erreurBD}<p> -->
+			<p> ${erreurIdentifiant}${erreurMdp}<p>
 			
 			<a href="#">Annuler</a><button type="submit" value="enregistrer" name="action">Enregistrer</button><button type="submit" value="supprimer" name="action">Supprimer mon compte</button>
 			

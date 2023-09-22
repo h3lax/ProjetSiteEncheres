@@ -74,15 +74,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 	
 	@Override
-	public void modifierUtilisateur() {
+	public int modifierUtilisateur(Utilisateur utilisateur) {
+		int ligneModifie = 0;
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			String requete = "UPDATE Utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
 			PreparedStatement pstmt = cnx.prepareStatement(requete);
 			setUtilisateur(utilisateur, pstmt);
+			pstmt.setInt(10, utilisateur.getNoUtilisateur());
+			ligneModifie = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return ligneModifie;
 	}
 	
 	private Utilisateur getUtilisateur(Utilisateur utilisateur, ResultSet rs) throws SQLException {
