@@ -1,19 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Site Vente aux Enchères ENI</title>
+<title>Site Vente aux EnchÃ¨res ENI</title>
 <link href="" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link rel="stylesheet" href="accueil.css">
 </head>
 <body>
 
-    <header class="En-tête">
-        <h2 class="NomSite">ENI-Enchères</h2>
-        <div class="Connexion"><a href="inscription.jsp">S'inscrire - Se connecter</a></div>
+    <header class="En-tÃªte">
+        <h2 class="NomSite">ENI-EnchÃ¨res</h2>
+        <div class="Connexion">
+
+			<c:if test="${sessionScope.utilisateur == null }">
+			<a href="connection">Connection</a>
+			<a href="inscription">Inscription</a>
+			</c:if>
+			<c:if test="${sessionScope.utilisateur !=null }">
+			<a href="mon-profil">Mon profil</a>
+			<a href="deconnection">Deconnection</a>
+			
+		</c:if>
+
+
+		</div>
     </header>
 
-    <h2 class="NomPage">Liste des enchères</h2>
+    <h2 class="NomPage">Liste des enchÃ¨res</h2>
     <br>
     <div class="Recherche">
         <h4 class="Filtres">Filtres : </h4>
@@ -22,7 +38,7 @@
         <br>
         <br>
         <form action="" method="post">
-            <label for="liste">Catégorie : </label>
+            <label for="liste">CatÃ©gorie : </label>
             <input type="text" list="listeChoix" name="liste" id="liste"
             placeholder="Toutes">
             <datalist id="listeChoix">
@@ -30,7 +46,7 @@
                 <option>Ameublement</option>
                 <option>Informatique</option>
                 <option>Sport & Loisirs</option>
-                <option>Vêtement</option>
+                <option>VÃªtement</option>
             </datalist>
         </form>
     </div>
@@ -41,7 +57,7 @@
     <br>
     <br>
     <br>
-    <div class="Enchères">
+    <div class="EnchÃ¨res">
        <fieldset class="Article1">
             <div class="ImgEtDescription">
                 <img class="ImgArticle1" src="../webapp/IMG/pc_gamer.jpg" alt="pc Gamer">
@@ -49,7 +65,7 @@
                     <h4 class="NomArticle">PC Gamer pour travailler</h4>
                     <br>
                     <p>Prix : 210 points</p>
-                    <p>Fin de l'enchère : 10/08/2018</p>
+                    <p>Fin de l'enchÃ¨re : 10/08/2018</p>
                     <p>Vendeur : jojo44</p>
                 </div>
             </div>
@@ -58,10 +74,10 @@
             <div class="ImgEtDescription">
                 <img class="ImgArticle2" src="../webapp/IMG/Rocket_Stove.webp" alt="Rocket stove">
                 <div class="Description">
-                    <h4 class="NomArticle">Rocket stove pour riz et pâtes</h4>
+                    <h4 class="NomArticle">Rocket stove pour riz et pÃ¢tes</h4>
                     <br>
                     <p>Prix : 185 points</p>
-                    <p>Fin de l'enchère : 09/10/2018</p>
+                    <p>Fin de l'enchÃ¨re : 09/10/2018</p>
                     <p>Vendeur : NineJea</p>
                 </div>
             </div>
