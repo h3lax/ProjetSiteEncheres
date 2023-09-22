@@ -7,8 +7,13 @@ public interface UtilisateurDAO {
 	Utilisateur creerUtilisateur(Utilisateur utilisateur);
 
 	Utilisateur selectByIdentifiant(String pseudo, String email);
+
 	Utilisateur selectByIdentifiant(String identifiant);
-	
+
 	Utilisateur connection(String identifiant, String motDePasse);
+
+	void deleteByEmail(String email, String motDePasse);
+
+
 
 }

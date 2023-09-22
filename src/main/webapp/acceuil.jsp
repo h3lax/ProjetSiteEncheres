@@ -22,6 +22,9 @@
 
 	<h2>Pas encore inscrit ?</h2>
 	<a href="inscription"> Par ici</a>
+	
+	<h3>Supprimer son compte</h3>
+	<a href="suppression"> Par ici</a>
 
 
 </body>

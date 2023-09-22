@@ -15,6 +15,8 @@ public interface UtilisateurManager {
 			String codePostal, String ville, String motDePasse);
 	
 	public Utilisateur connection(String identifiant, String motDePasse);
+
+	void deleteByEmail(String email, String motDePasse);
 	
 
 }
