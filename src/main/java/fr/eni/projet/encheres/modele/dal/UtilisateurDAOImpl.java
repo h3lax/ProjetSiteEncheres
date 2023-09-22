@@ -89,6 +89,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		return ligneModifie;
 	}
 	
+	@Override
+	public int supprimerUtilisateur(int noUtilisateur) {
+		int ligneSupprime = 0;
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = cnx.prepareStatement("DELETE FROM utilisateurs WHERE no_utilisateur = ?");
+			stmt.setInt(1, noUtilisateur);
+			ligneSupprime = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ligneSupprime;
+	}
+	
 	private Utilisateur getUtilisateur(Utilisateur utilisateur, ResultSet rs) throws SQLException {
 		if (rs.next()) {
 			utilisateur.setNoUtilisateur(rs.getInt(1));
@@ -100,6 +113,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			utilisateur.setRue(rs.getString(7));
 			utilisateur.setCodePostal(rs.getString(8));
 			utilisateur.setVille(rs.getString(9));
+			utilisateur.setMotDePasse(rs.getString(10));
 		} else utilisateur = null;
 		return utilisateur;
 	}
@@ -115,5 +129,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		stmt.setString(8, utilisateur.getVille());
 		stmt.setString(9, utilisateur.getMotDePasse());
 	}
+
 		
 }
