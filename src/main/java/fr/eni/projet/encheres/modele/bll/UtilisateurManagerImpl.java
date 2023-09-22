@@ -24,12 +24,16 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		else return false;
 	}
 	
-	public boolean verifChampsVides(String pseudo, String nom, String prenom, String email,
+	public boolean verifChampsRemplits(String s) {
+		if (s == null || s.isBlank() || s.isEmpty()) return false;
+		else return true;
+	}
+	public boolean verifChampsRemplits(String pseudo, String nom, String prenom, String email,
 			String rue, String codePostal, String ville, String motDePasse) {
 		String[] champs = {pseudo, nom, email, rue, codePostal, ville, motDePasse};
 		boolean validation = true;
 		for (String s : champs) {
-			if (s == null || s.isBlank() || s.isEmpty()) validation = false;
+			if (!verifChampsRemplits(s)) validation = false;
 		}
 		return validation;
 	}
@@ -59,6 +63,19 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 	public Utilisateur connection(String identifiant, String motDePasse) {
 		// On fait appel à la DAL pour récupérer l'info dans la BD, il n'y a pas d'acction particulière requise par la BLL
 		return utilisateurDAO.connection(identifiant, motDePasse);
+	}
+
+	@Override
+	public Utilisateur selectByIndentifiant(String identifiant) {
+		return utilisateurDAO.selectByIdentifiant(identifiant);
+	}
+
+	@Override
+	public boolean modifierUtilisateur(Utilisateur utilisateur) {
+		boolean modificationEffectue = false;
+		if (utilisateurDAO.modifierUtilisateur(utilisateur) == 1) modificationEffectue = true;
+		else System.out.println("C'est chiant");
+		return modificationEffectue;
 	}
 
 

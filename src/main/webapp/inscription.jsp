@@ -4,12 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Page Inscription</title>
+<title>Inscription</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
-	
-	<h2>Mon profil</h2>
+	<h1>Mon profil</h1>
 		<form action="inscription" method="post">
 			
 			<div>
