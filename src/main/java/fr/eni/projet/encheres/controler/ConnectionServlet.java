@@ -34,7 +34,7 @@ public class ConnectionServlet extends HttpServlet {
 		Utilisateur utilisateur = utilisateurManager.connection(identifiant, motDePasse);
 		if (utilisateur != null) {
 			request.getSession().setAttribute("utilisateur",utilisateur);
-			this.getServletContext().getRequestDispatcher("/acceuil.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
 		}else {
 			String erreurID = "Identifiant ou mot de passe inconnu";
 			request.setAttribute("erreurID", erreurID);

@@ -7,9 +7,9 @@
 <title>Page de deconnection</title>
 </head>
 <body>
-<h1>Vous avez bien était déconnecté.</h1>
+<h1>Vous avez bien été déconnecté.</h1>
 
-<a href="acceuil.jsp">Retour a l'acceuil</a>
+<a href="accueil.jsp">Retour a l'accueil</a>
 
 </body>
 </html>
