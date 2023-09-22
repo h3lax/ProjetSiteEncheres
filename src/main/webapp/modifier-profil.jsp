@@ -28,7 +28,7 @@
 			</div>
 			<p> ${erreurIdentifiant}${erreurMdp}<p>
 			
-			<a href="#">Annuler</a><button type="submit" value="enregistrer" name="action">Enregistrer</button><button type="submit" value="supprimer" name="action">Supprimer mon compte</button>
+			<a href="accueil.jsp">Annuler</a><button type="submit" value="enregistrer" name="action">Enregistrer</button><button type="submit" value="supprimer" name="action">Supprimer mon compte</button>
 			
 		
 		

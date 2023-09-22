@@ -13,4 +13,6 @@ public interface UtilisateurDAO {
 
 	int modifierUtilisateur(Utilisateur utilisateur);
 
+	int supprimerUtilisateur(int noUtilisateur);
+
 }

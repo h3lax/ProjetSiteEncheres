@@ -19,7 +19,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 	private UtilisateurManagerImpl() {
 	}
 
-	public boolean verifConfirmation(String motDePasse, String confirmation) {
+	public boolean verifEstEgal(String motDePasse, String confirmation) {
 		if (motDePasse.equals(confirmation)) return true;
 		else return false;
 	}
@@ -75,6 +75,13 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		boolean modificationEffectue = false;
 		if (utilisateurDAO.modifierUtilisateur(utilisateur) == 1) modificationEffectue = true;
 		else System.out.println("C'est chiant");
+		return modificationEffectue;
+	}
+
+	@Override
+	public boolean supprimerCompte(int noUtilisateur) {
+		boolean modificationEffectue = false;
+		if (utilisateurDAO.supprimerUtilisateur(noUtilisateur) == 1) modificationEffectue = true;
 		return modificationEffectue;
 	}
 

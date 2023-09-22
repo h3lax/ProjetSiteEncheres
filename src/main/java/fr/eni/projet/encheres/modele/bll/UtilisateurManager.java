@@ -4,7 +4,7 @@ import fr.eni.projet.encheres.modele.bo.Utilisateur;
 
 public interface UtilisateurManager {
 
-	boolean verifConfirmation(String motDePasse, String confirmation);
+	boolean verifEstEgal(String motDePasse, String confirmation);
 
 	public boolean verifChampsRemplits(String s);
 	boolean verifChampsRemplits(String pseudo, String nom, String prenom, String email,
@@ -20,6 +20,8 @@ public interface UtilisateurManager {
 	Utilisateur selectByIndentifiant(String identifiant);
 
 	boolean modifierUtilisateur(Utilisateur utilisateur);
+
+	boolean supprimerCompte(int noUtilisateur);
 	
 
 }

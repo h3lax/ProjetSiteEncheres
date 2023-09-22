@@ -45,7 +45,7 @@ public class InscriptionServlet extends HttpServlet {
 		
 		switch (utilisateurManager.verifNouvelUtilisateur(pseudo, email)) {
 			case 0 : 	boolean champsRemplits = utilisateurManager.verifChampsRemplits(pseudo, nom, prenom, email, rue, codePostal, ville, motDePasse);
-						boolean verifConfirmation = utilisateurManager.verifConfirmation(motDePasse, confirmation); 
+						boolean verifConfirmation = utilisateurManager.verifEstEgal(motDePasse, confirmation); 
 						if (champsRemplits && verifConfirmation) {
 							Utilisateur utilisateur = utilisateurManager.creerUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
 							request.setAttribute("utilisateur", utilisateur);
