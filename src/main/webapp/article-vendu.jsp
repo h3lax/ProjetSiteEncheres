@@ -31,7 +31,7 @@
 	            <input type="datetime-local" id="dateFin" name="dateFinEncheres" required>
 	        </div>
 	        <div>
-	            <label for="prixInitial">Prix initial (en points):</label>
+	            <label for="prixInitial">Prix initial (en points) :</label>
 	            <input type="number" id="prixInitial" name="prixInitial" required>
 	        </div>
 	        <div>
