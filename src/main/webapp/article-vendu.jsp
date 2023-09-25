@@ -38,11 +38,10 @@
 	        <div>
 	            <label for="noCategorie">Catégorie :</label>
 	            <select id="noCategorie" name="noCategorie">
-	                <option value="1">Electronique</option>
-	                <option value="2">Vêtements</option>
-	                <option value="3">Maison & Jardin</option>
-	                <option value="4">Livres & Musique</option>
-	                <option value="5">Sport & Loisirs</option>
+	                <option value="1">Informatique</option>
+	                <option value="2">Vêtement</option>
+	                <option value="3">Ameublement</option>
+	                <option value="4">Sport & Loisirs</option>
 	            </select>
 	        </div>
 	        
