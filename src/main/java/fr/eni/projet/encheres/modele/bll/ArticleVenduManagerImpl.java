@@ -9,7 +9,8 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	
 	@Override
 	public void addArticleVendu(ArticleVendu articleVendu) {
-		dao.insert(articleVendu);
+	    int generatedId = dao.insert(articleVendu);
+	    articleVendu.setNoArticle(generatedId);
 	}
 
 }
