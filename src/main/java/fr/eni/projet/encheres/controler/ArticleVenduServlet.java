@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projet.encheres.modele.bll.ArticleVenduManager;
 import fr.eni.projet.encheres.modele.bll.ArticleVenduManagerSing;
 import fr.eni.projet.encheres.modele.bo.ArticleVendu;
+import fr.eni.projet.encheres.modele.bo.Utilisateur;
 
 /**
  * Servlet implementation class ArticleVenduServlet
@@ -27,7 +28,7 @@ public class ArticleVenduServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/article-vendu.jsp").forward(request, response);
+		request.getRequestDispatcher("/article-vendu.jsp").forward(request, response);
 	}
 
 	/**
@@ -43,6 +44,9 @@ public class ArticleVenduServlet extends HttpServlet {
 		LocalDateTime dateDebutEncheres = LocalDateTime.parse(dateDebutEncheresString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		LocalDateTime dateFinEncheres = LocalDateTime.parse(dateFinEncheresString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		
+		// récupération de l'utilisateur depuis la session
+	    Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+		
 		int prixInitial = Integer.parseInt(request.getParameter("prixInitial"));
 		
 		// valeur par défaut
@@ -52,7 +56,14 @@ public class ArticleVenduServlet extends HttpServlet {
 	    String etatVente = "En cours";
 		
 		int noCategorie = Integer.parseInt(request.getParameter("noCategorie"));
-		int noUtilisateur = 2; // TODO: récupérer la valeur appropriée pour l'utilisateur depuis la session
+		
+	    if(utilisateur == null) {
+	        // si l'utilisateur n'est pas connecté, redirection vers la page de connection
+	    	request.getRequestDispatcher("/connection.jsp").forward(request, response);
+	        return;
+	    }
+		
+	    int noUtilisateur = utilisateur.getNoUtilisateur();
 		
 		String message="";
 		
@@ -62,7 +73,7 @@ public class ArticleVenduServlet extends HttpServlet {
 		
 		// retour à la jsp
 		request.setAttribute("message", message);
-		request.getRequestDispatcher("/WEB-INF/article-vendu.jsp").forward(request, response);
+		request.getRequestDispatcher("/article-vendu.jsp").forward(request, response);
 	}
 
 }
