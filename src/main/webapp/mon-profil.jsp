@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Mon Profil</title>
 </head>
+<header class="En-tête">
+    <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+    </header>
 <body>
 
 <h1>Profil de ${utilisateur.getPseudo()}</h1>

@@ -8,6 +8,17 @@
 </head>
 <body>
 
+	<header>
+	 <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+	<div class="Connexion">
+	
+	<a href="deconnection">Deconnection</a>
+	<a href="mon-profil">Mon profil</a>
+	</div>
+	</header>
+
 	<div>
 		<p>${message}</p>
 	

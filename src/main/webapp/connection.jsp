@@ -7,6 +7,11 @@
 <title>Page de connection</title>
 </head>
 <body>
+<header class="En-tête">
+    <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+    </header>
 		<form action="connection" method="post">
 		<label for="id">Email ou Pseudo :</label>
 		<input type="text" id="id" name="id"><br> 

@@ -7,6 +7,11 @@
 <title>Afficher Profil</title>
 </head>
 <body>
+<header class="En-tête">
+    <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+    </header>
 
 <h1>Profil de ${utilisateurConsulte.getPseudo()}</h1>
 <p>Nom : ${utilisateurConsulte.getNom()}<p>
