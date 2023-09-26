@@ -16,6 +16,7 @@
 <p>Rue : ${utilisateur.getRue()}<p>
 <p>Code postal : ${utilisateur.getCodePostal()}
 <p>Ville : ${utilisateur.getVille()}<p>
+<p>Crédit : ${utilisateur.getCredit()} point(s)<p>
 
 <form action="mon-profil" method="post">
 <button type="submit">Modifier</button>

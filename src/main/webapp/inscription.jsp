@@ -27,7 +27,7 @@
 			</div>
 			<p> ${erreurFormulaire}${erreurEmail}${erreurPseudo}${erreurBD}<p>
 			
-			<button type="submit">Créer</button><a href="#">Annuler</a>
+			<button type="submit">Créer</button><a href="accueil.jsp">Annuler</a>
 			
 		
 		
