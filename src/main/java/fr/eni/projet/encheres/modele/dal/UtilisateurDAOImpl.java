@@ -15,7 +15,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			
-			PreparedStatement stmt = cnx.prepareStatement("INSERT INTO UTILISATEURS values (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = cnx.prepareStatement("INSERT INTO UTILISATEURS values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
 			setUtilisateur(utilisateur, stmt);
 			stmt.executeUpdate();
@@ -77,10 +77,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	public int modifierUtilisateur(Utilisateur utilisateur) {
 		int ligneModifie = 0;
 		try (Connection cnx = ConnectionProvider.getConnection()){
-			String requete = "UPDATE Utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
+			String requete = "UPDATE Utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE no_utilisateur = ?";
 			PreparedStatement pstmt = cnx.prepareStatement(requete);
 			setUtilisateur(utilisateur, pstmt);
-			pstmt.setInt(10, utilisateur.getNoUtilisateur());
+			pstmt.setInt(11, utilisateur.getNoUtilisateur());
 			ligneModifie = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -114,6 +114,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			utilisateur.setCodePostal(rs.getString(8));
 			utilisateur.setVille(rs.getString(9));
 			utilisateur.setMotDePasse(rs.getString(10));
+			utilisateur.setCredit(rs.getInt(11));
 		} else utilisateur = null;
 		return utilisateur;
 	}
@@ -128,6 +129,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		stmt.setString(7, utilisateur.getCodePostal());
 		stmt.setString(8, utilisateur.getVille());
 		stmt.setString(9, utilisateur.getMotDePasse());
+		stmt.setInt(10, utilisateur.getCredit());
+
+		
 	}
 
 		

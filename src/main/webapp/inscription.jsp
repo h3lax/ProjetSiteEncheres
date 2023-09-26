@@ -70,7 +70,7 @@
 	
 	                <div class="text-center">
 	                    <button type="submit" class="btn btn-primary">Créer</button>
-	                    <a href="#" class="btn btn-secondary">Annuler</a>
+	                    <a href="accueil.jsp" class="btn btn-secondary">Annuler</a>
 	                </div>
 	
 	            </form>
