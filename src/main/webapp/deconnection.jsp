@@ -4,12 +4,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Page de deconnection</title>
+<title>Page de déconnexion</title>
+<!-- Bootstrap core CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootswatch theme -->
+<link href="resources/css/lux.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Vous avez bien été déconnecté.</h1>
 
-<a href="accueil.jsp">Retour a l'accueil</a>
+	<div class="container mt-5">
+	    <div class="row justify-content-center">
+	        <div class="col-md-6 text-center">
+	            <h2 class="mb-4">Déconnexion</h2>
+	            <p class="lead">Vous avez bien été déconnecté.</p>
+	            <a href="accueil.jsp" class="btn btn-primary">Retour à l'accueil</a>
+	        </div>
+	    </div>
+	</div>
 
 </body>
 </html>
