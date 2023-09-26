@@ -34,19 +34,35 @@
 	            <label for="prixInitial">Prix initial (en points) :</label>
 	            <input type="number" id="prixInitial" name="prixInitial" required>
 	        </div>
+	        
 	        <div>
 	            <label for="noCategorie">Catégorie :</label>
 	            <select id="noCategorie" name="noCategorie">
-	                <option value="1">Electronique</option>
-	                <option value="2">Vêtements</option>
-	                <option value="3">Maison & Jardin</option>
-	                <option value="4">Livres & Musique</option>
-	                <option value="5">Sport & Loisirs</option>
+	                <option value="1">Informatique</option>
+	                <option value="2">Vêtement</option>
+	                <option value="3">Ameublement</option>
+	                <option value="4">Sport & Loisirs</option>
 	            </select>
 	        </div>
+	        
+        	<p><strong>Note :</strong> L'adresse de retrait utilisée sera votre adresse par défaut associée à votre compte.</p>
+
 	        <div>
+			    <label for="rue">Rue :</label>
+			    <input type="text" id="rue" name="rue" value="${utilisateur.rue}" readonly>
+			</div>
+			<div>
+			    <label for="codePostal">Code Postal :</label>
+			    <input type="text" id="codePostal" name="codePostal" value="${utilisateur.codePostal}" readonly>
+			</div>
+			<div>
+			    <label for="ville">Ville :</label>
+			    <input type="text" id="ville" name="ville" value="${utilisateur.ville}" readonly>
+			</div>
+			
+			 <div>
 	            <input type="submit" value="Mettre en vente">
-	        </div>
+	        </div>	        
 	    </form>
 	</div>
 	
