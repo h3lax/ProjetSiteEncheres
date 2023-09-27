@@ -8,11 +8,13 @@ public interface UtilisateurDAO {
 
 	Utilisateur selectByIdentifiant(String pseudo, String email);
 	Utilisateur selectByIdentifiant(String identifiant);
+	Utilisateur selectByIdentifiant(int identifiant);
 	
 	Utilisateur connection(String identifiant, String motDePasse);
 
 	int modifierUtilisateur(Utilisateur utilisateur);
 
 	int supprimerUtilisateur(int noUtilisateur);
+
 
 }

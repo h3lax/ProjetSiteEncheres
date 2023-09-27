@@ -1,6 +1,9 @@
 package fr.eni.projet.encheres.controler;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projet.encheres.modele.bll.EnchereManager;
 import fr.eni.projet.encheres.modele.bll.EnchereManagerImpl;
+import fr.eni.projet.encheres.modele.bll.UtilisateurManager;
+import fr.eni.projet.encheres.modele.bll.UtilisateurManagerImpl;
+import fr.eni.projet.encheres.modele.bo.ArticleVendu;
+import fr.eni.projet.encheres.modele.bo.Enchere;
 import fr.eni.projet.encheres.modele.bo.Utilisateur;
 
 /**
@@ -17,7 +24,8 @@ import fr.eni.projet.encheres.modele.bo.Utilisateur;
 @WebServlet("/encherir")
 public class EncherirServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager enchereManager = EnchereManagerImpl.getInstance();   
+	private EnchereManager enchereManager = EnchereManagerImpl.getInstance();
+	private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance(); 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,28 +37,48 @@ public class EncherirServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Trouver le moyen de récupérer le noArticle j'imagine qu'on va devoir le glisser dans la requete
-		//Il me faut l'objet Article en fait
-//		int noArticle = Integer.parseInt(request.getParameter("noArticle"));
-//		
-//		int prixEnchere = Integer.parseInt(request.getParameter("prixEnchere"));
-//		
-//		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
-//		int noUtilisateur = utilisateur.getNoUtilisateur();
+		//Il me faut l'objet Article en fait ICI POUR TEST JEN CREE UN PAR DEFAUT
+		ArticleVendu articleVendu = new ArticleVendu("Bouteille", "c est une bouteille classique", LocalDateTime.now(), LocalDateTime.parse("2023-09-28", DateTimeFormatter.ISO_LOCAL_DATE_TIME), 100, 100, "en vente", 1, 1);
+		articleVendu.setNoArticle(1);
+		//Je récupère l'utilisateur en session
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+
+		//Récupération des paramètres pour créer l'enchère
+		int montantEnchere = Integer.parseInt(request.getParameter("prixEnchere"));
 		
+		//Nous faisons en sorte, dans le cycle de vie de l'article d'actualiser le prix de vente systématiquement pour éviter de devoir faire des requêtes inutiles en BD
+		//Logiquement le prix de vente est égal soit au prix initial soit au prix de la dernière enchère qui est nécéssairement la plus haute.
+		String message = null;
+		if (!enchereManager.verifPrixSuperieur(montantEnchere, articleVendu.getPrixVente())) {
+			message = "Vous devez indiquer un prix supérieur au prix de vente actuel pour valider votre enchère";
+			request.setAttribute("message", message);
+			this.getServletContext().getRequestDispatcher("/article-vendu.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
+		}
 		
-		//TEST
-		int noArticle = 2;
-		int prixEnchere = 150;
-		int noUtilisateur = 1;
-		//je demande à la BLL de me créer l'enchere en BD et en métier
-		enchereManager.creerEnchere(noUtilisateur, noArticle, prixEnchere);
-		
-		
-		
-		this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
-		
-		
+		//il me faut une fonction pour retirer les points de l'utilisateur qui enchérit
+			//Dabord je vérifie que le montant de l'enchère est supérieure aux points dont l'utilisateur est en possession
+		utilisateurManager.verifPoints(utilisateur, montantEnchere);
+		if (!utilisateurManager.verifPoints(utilisateur, montantEnchere)) {
+			message = "Désolé, mais vous n'avez pas suffisement de crédit pour placer cette enchère";
+			request.setAttribute("message", message);
+			this.getServletContext().getRequestDispatcher("/article-vendu.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
+		}
+			//Ensuite je crée l'enchère en BD
+				//Attention, si l'utilisateur a déjà enchéri il faut supprimer son ancienne enchère avant car le couple noarticle et noUser est unique
+				//Pour pouvoir en créer une nouvelle ensuite creer enchère gère tout d'un coup
+		if(enchereManager.creerEnchere(utilisateur, articleVendu, montantEnchere) != null) {
+			//Si c'est bon, je modifie alors les crédits de l'utilisateur & j'actualise le prixVente de l'article
+			utilisateurManager.paiement(utilisateur, montantEnchere);
+			//NE PAS OUBLIER DE MODIFIER LE PRIX DE VENTE DE LARTICLE
+			//Je vais chercher l'enchère précédente s'il y en a une et je rembourse l'ancien enchereur
+			Enchere ancienneEnchere = enchereManager.verifEnchereExistante(articleVendu);
+			if (ancienneEnchere != null) utilisateurManager.credit(ancienneEnchere.getNoUtilisateur(), ancienneEnchere.getMontantEnchere());
+			this.getServletContext().getRequestDispatcher("/testEnchere.jsp").forward(request, response);
+		} else {
+			message = "Nous avons rencontré un problème lors de la création de votre enchère";
+			request.setAttribute("message", message);
+			this.getServletContext().getRequestDispatcher("/article-vendu.jsp").forward(request, response);
+		}
 		
 	}
 
