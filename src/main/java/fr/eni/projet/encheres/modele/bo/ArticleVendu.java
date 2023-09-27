@@ -1,6 +1,5 @@
 package fr.eni.projet.encheres.modele.bo;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class ArticleVendu {
@@ -14,6 +13,9 @@ public class ArticleVendu {
 	private String etatVente;
 	private int noUtilisateur;
 	private int noCategorie;
+	
+	// pseudo vendeur 
+	private String pseudoVendeur;
 	
 	public ArticleVendu() {
 	}
@@ -132,13 +134,21 @@ public class ArticleVendu {
 	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
+	
+	public String getPseudoVendeur() {
+	    return pseudoVendeur;
+	}
+
+	public void setPseudoVendeur(String pseudoVendeur) {
+	    this.pseudoVendeur = pseudoVendeur;
+	}
 
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", prixInitial="
 				+ prixInitial + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", noUtilisateur="
-				+ noUtilisateur + ", noCategorie=" + noCategorie + "]";
+				+ noUtilisateur + ", noCategorie=" + noCategorie + ", pseudoVendeur=" + pseudoVendeur + "]";
 	}
 
 }

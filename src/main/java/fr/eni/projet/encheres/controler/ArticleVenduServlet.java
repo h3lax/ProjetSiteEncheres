@@ -22,7 +22,7 @@ import fr.eni.projet.encheres.modele.dal.RetraitDAOImpl;
 /**
  * Servlet implementation class ArticleVenduServlet
  */
-@WebServlet("/ArticleVenduServlet")
+@WebServlet("/article-vendu")
 public class ArticleVenduServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleVenduManager manager = ArticleVenduManagerSing.getInstance();
