@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.projet.encheres.modele.bo.ArticleVendu;
 
@@ -56,4 +58,43 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		
 		return generatedKey;
 	}
+	
+	
+	@Override
+	public List<ArticleVendu> listerEncheresEnCours() {
+	    List<ArticleVendu> encheresEnCours = new ArrayList<>();
+	    
+	    final String LISTER_ENCHERES_EN_COURS = "SELECT ARTICLES_VENDUS.*, UTILISATEURS.pseudo " + 
+								                "FROM ARTICLES_VENDUS " + 
+								                "JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur " +
+								                "WHERE date_fin_encheres > GETDATE() AND etat_vente = 'En cours'";
+
+
+	    try (Connection cnx = ConnectionProvider.getConnection()) {
+	        PreparedStatement stmt = cnx.prepareStatement(LISTER_ENCHERES_EN_COURS);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            ArticleVendu enchere = new ArticleVendu();
+	            enchere.setNomArticle(rs.getString("nom_article"));
+	            enchere.setDescription(rs.getString("description"));
+	            enchere.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
+	            enchere.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
+	            enchere.setPrixInitial(rs.getInt("prix_initial"));
+	            enchere.setPrixVente(rs.getInt("prix_vente"));
+	            enchere.setEtatVente(rs.getString("etat_vente"));
+	            enchere.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	            enchere.setNoCategorie(rs.getInt("no_categorie"));
+	            enchere.setPseudoVendeur(rs.getString("pseudo"));
+	            encheresEnCours.add(enchere);
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // TODO : gérer les exceptions
+	    }
+
+	    return encheresEnCours;
+	}
+
 }
