@@ -18,6 +18,8 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 	
 	private UtilisateurManagerImpl() {
 	}
+	
+
 
 	public boolean verifEstEgal(String motDePasse, String confirmation) {
 		if (motDePasse.equals(confirmation)) return true;
@@ -85,5 +87,8 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		return modificationEffectue;
 	}
 
+	
+
+	
 
 }

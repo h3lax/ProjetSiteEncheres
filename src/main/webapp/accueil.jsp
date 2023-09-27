@@ -12,7 +12,10 @@
 <body>
 
     <header class="En-tête">
-        <h2 class="NomSite">ENI-Enchères</h2>
+    <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+        
         <div class="Connexion">
 
 			<c:if test="${sessionScope.utilisateur == null }">
@@ -32,6 +35,7 @@
     <h2 class="NomPage">Liste des enchères</h2>
     <br>
     <div class="Recherche">
+    <br>
         <h4 class="Filtres">Filtres : </h4>
         <input id="searchbar" type="text"
         name="search" placeholder="Le nom de l'article contient">
