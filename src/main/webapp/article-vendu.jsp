@@ -31,7 +31,7 @@
         <div class="row">
         	<div class="col-lg-6 offset-lg-3">
         	
-        		<form action="ArticleVenduServlet" method="POST">
+        		<form action="vendre" method="POST">
 		            <div class="form-group">
 		                <label for="nomArticle">Nom de l'article :</label>
 		                <input type="text" class="form-control" id="nomArticle" name="nomArticle" required>

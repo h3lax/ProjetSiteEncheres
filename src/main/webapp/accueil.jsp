@@ -19,14 +19,14 @@
         <div class="Connexion">
 
 			<c:if test="${sessionScope.utilisateur == null }">
-			<a href="connection">Connection</a>
-			<a href="inscription">Inscription</a>
+				<a href="connection">Connection</a>
+				<a href="inscription">Inscription</a>
 			</c:if>
 			<c:if test="${sessionScope.utilisateur !=null }">
-			<a href="mon-profil">Mon profil</a>
-			<a href="deconnection">Deconnection</a>
-			
-		</c:if>
+				<a href="mon-profil">Mon profil</a>
+				<a href="vendre">Mettre un article en vente</a>
+				<a href="deconnection">Deconnection</a>
+			</c:if>
 
 
 		</div>
