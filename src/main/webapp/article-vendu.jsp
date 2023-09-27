@@ -12,7 +12,18 @@
 </head>
 <body>
 
-	<div class="container mt-5">
+	<header>
+    <a href="accueil.jsp" target="_self">
+      <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+    <div class="Connexion">
+
+      <a href="deconnection">Deconnection</a>
+      <a href="mon-profil">Mon profil</a>
+    </div>
+	</header>
+
+  <div class="container mt-5">
         <p class="text-muted">${message}</p>
     
         <h2 class="mb-4 text-center">Nouvelle mise en vente d'article</h2>
@@ -81,6 +92,7 @@
         	</div>
         </div>
     </div>
+
 	
 </body>
 </html>

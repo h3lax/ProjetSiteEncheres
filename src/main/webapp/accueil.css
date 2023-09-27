@@ -45,6 +45,11 @@ fieldset {
     height: 10%;
 }
 
+.Logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .ImgArticle1{
     display: inline-block;
     vertical-align: center;
