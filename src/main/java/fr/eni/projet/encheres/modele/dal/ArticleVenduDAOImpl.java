@@ -2,7 +2,9 @@ package fr.eni.projet.encheres.modele.dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -16,9 +18,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 
 	@Override
-	public void insert(ArticleVendu articleVendu) {
+	public int insert(ArticleVendu articleVendu) {
+		int generatedKey = -1; 
+		
 		try(Connection cnx = ConnectionProvider.getConnection()){
-			PreparedStatement stmt = cnx.prepareStatement(INSERT); // TODO : Gérer la récupération de l'identifiant
+			PreparedStatement stmt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS); // TODO : Gérer la récupération de l'identifiant
 			stmt.setString(1, articleVendu.getNomArticle());
 			stmt.setString(2, articleVendu.getDescription());
 			
@@ -37,11 +41,19 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			stmt.setInt(9, articleVendu.getNoCategorie());
 			
 			stmt.executeUpdate();
+			
+			// récupération de la clé générée
+	        ResultSet rs = stmt.getGeneratedKeys();
+	        if (rs.next()) {
+	            generatedKey = rs.getInt(1);
+	        }
+	        rs.close();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 			// TODO : faire la gestion des exceptions
 		}
+		
+		return generatedKey;
 	}
-
 }

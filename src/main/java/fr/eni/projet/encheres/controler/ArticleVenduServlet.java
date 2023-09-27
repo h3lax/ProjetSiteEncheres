@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projet.encheres.modele.bll.ArticleVenduManager;
 import fr.eni.projet.encheres.modele.bll.ArticleVenduManagerSing;
 import fr.eni.projet.encheres.modele.bo.ArticleVendu;
+import fr.eni.projet.encheres.modele.bo.Retrait;
 import fr.eni.projet.encheres.modele.bo.Utilisateur;
+
+import fr.eni.projet.encheres.modele.dal.RetraitDAO;
+import fr.eni.projet.encheres.modele.dal.RetraitDAOImpl;
 
 /**
  * Servlet implementation class ArticleVenduServlet
@@ -68,8 +72,23 @@ public class ArticleVenduServlet extends HttpServlet {
 		String message="";
 		
 		// traitement
-		manager.addArticleVendu(new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, etatVente, noUtilisateur, noCategorie));
+		ArticleVendu nouvelArticle = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, etatVente, noUtilisateur, noCategorie);
+		manager.addArticleVendu(nouvelArticle);
 		message = "Insertion effectuée";
+		
+		// récupération de l'id du nouvel article créé
+		int nouvelArticleId = nouvelArticle.getNoArticle();
+		
+		// création du retrait
+		Retrait retrait = new Retrait();
+		retrait.setNoArticle(nouvelArticleId);
+		retrait.setRue(utilisateur.getRue());
+		retrait.setCodePostal(utilisateur.getCodePostal());
+		retrait.setVille(utilisateur.getVille());
+
+		// insertion du retrait en base de données
+		RetraitDAO retraitDAO = new RetraitDAOImpl();
+		retraitDAO.insert(retrait);
 		
 		// retour à la jsp
 		request.setAttribute("message", message);
