@@ -67,12 +67,13 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		return utilisateurDAO.connection(identifiant, motDePasse);
 	}
 
-	@Override
 	public Utilisateur selectByIndentifiant(String identifiant) {
 		return utilisateurDAO.selectByIdentifiant(identifiant);
 	}
+	public Utilisateur selectByIndentifiant(int identifiant) {
+		return utilisateurDAO.selectByIdentifiant(identifiant);
+	}
 
-	@Override
 	public boolean modifierUtilisateur(Utilisateur utilisateur) {
 		boolean modificationEffectue = false;
 		if (utilisateurDAO.modifierUtilisateur(utilisateur) == 1) modificationEffectue = true;
@@ -80,11 +81,33 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 		return modificationEffectue;
 	}
 
-	@Override
 	public boolean supprimerCompte(int noUtilisateur) {
 		boolean modificationEffectue = false;
 		if (utilisateurDAO.supprimerUtilisateur(noUtilisateur) == 1) modificationEffectue = true;
 		return modificationEffectue;
+	}
+
+	public boolean verifPoints(Utilisateur utilisateur, int montantEnchere) {
+		if (utilisateur.getCredit() >= montantEnchere) return true;
+		else return false;
+	}
+
+	public boolean paiement(Utilisateur utilisateur, int montantEnchere) {
+		utilisateur.setCredit(utilisateur.getCredit() - montantEnchere);
+		if (utilisateurDAO.modifierUtilisateur(utilisateur) == 1) return true;
+		return false;
+	}
+
+	public boolean credit(Utilisateur utilisateur, int montantEnchere) {
+		utilisateur.setCredit(utilisateur.getCredit() + montantEnchere);
+		if (utilisateurDAO.modifierUtilisateur(utilisateur) == 1) return true;
+		return false;
+	}
+
+	public boolean credit(int noUtilisateur, int montantEnchere) {
+		Utilisateur utilisateur = utilisateurDAO.selectByIdentifiant(noUtilisateur);
+		return credit(utilisateur, montantEnchere);
+		
 	}
 
 	

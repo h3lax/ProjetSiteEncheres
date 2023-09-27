@@ -54,7 +54,7 @@ public class ArticleVenduServlet extends HttpServlet {
 		int prixInitial = Integer.parseInt(request.getParameter("prixInitial"));
 		
 		// valeur par défaut
-		int prixVente = 0; // TODO : à définir 
+		int prixVente = prixInitial ;
 		
 		// valeur par défaut
 	    String etatVente = "En cours";

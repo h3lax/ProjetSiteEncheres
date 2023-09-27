@@ -52,6 +52,23 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	public Utilisateur selectByIdentifiant(String identifiant) {
 		return selectByIdentifiant( identifiant, identifiant);
 	}
+	
+	public Utilisateur selectByIdentifiant(int identifiant) {
+		Utilisateur utilisateur = new Utilisateur();
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			
+			PreparedStatement stmt = cnx.prepareStatement("SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?");
+			stmt.setInt(1, identifiant);
+			ResultSet rs = stmt.executeQuery();
+			
+			utilisateur = getUtilisateur(utilisateur, rs);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return utilisateur;
+	}
+	
 
 	public Utilisateur connection(String identifiant, String motDePasse) {
 		Utilisateur utilisateur = new Utilisateur();
@@ -73,7 +90,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		return utilisateur;
 	}
 	
-	@Override
 	public int modifierUtilisateur(Utilisateur utilisateur) {
 		int ligneModifie = 0;
 		try (Connection cnx = ConnectionProvider.getConnection()){
@@ -89,7 +105,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		return ligneModifie;
 	}
 	
-	@Override
 	public int supprimerUtilisateur(int noUtilisateur) {
 		int ligneSupprime = 0;
 		try (Connection cnx = ConnectionProvider.getConnection()){
