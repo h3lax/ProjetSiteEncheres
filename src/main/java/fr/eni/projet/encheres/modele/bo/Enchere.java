@@ -1,12 +1,12 @@
 package fr.eni.projet.encheres.modele.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Enchere {
 
 	private int noUtilisateur;
 	private int noArticle;
-	private LocalDate dateEnchere;
+	private LocalDateTime dateEnchere;
 	private int montantEnchere;
 	
 	public Enchere() {
@@ -35,11 +35,11 @@ public class Enchere {
 		this.noArticle = noArticle;
 	}
 
-	public LocalDate getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalDate dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 
@@ -49,6 +49,12 @@ public class Enchere {
 
 	public void setMontantEnchere(int montantEnchere) {
 		this.montantEnchere = montantEnchere;
+	}
+
+	@Override
+	public String toString() {
+		return "Enchere [noUtilisateur=" + noUtilisateur + ", noArticle=" + noArticle + ", dateEnchere=" + dateEnchere
+				+ ", montantEnchere=" + montantEnchere + "]";
 	}
 	
 	
