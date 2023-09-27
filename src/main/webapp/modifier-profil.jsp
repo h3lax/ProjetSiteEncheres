@@ -7,6 +7,11 @@
 <title>Modifier mon profil</title>
 </head>
 <body>
+<header class="En-tête">
+    <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+    </header>
 	<h1>Mon profil</h1>
 		<form action="modifier-profil" method="post">
 			

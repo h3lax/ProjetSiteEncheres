@@ -22,6 +22,5 @@ public interface UtilisateurManager {
 	boolean modifierUtilisateur(Utilisateur utilisateur);
 
 	boolean supprimerCompte(int noUtilisateur);
-	
 
 }

@@ -16,12 +16,13 @@
 </head>
 <body>
 
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
 	    <div class="container-fluid">
 	        <a class="navbar-brand ml-3" href="#">
-			    <img src="resources/images/logo_eni_encheres.png" alt="Logo ENI-Enchères" width="80" height="80" class="d-inline-block align-top">
-			</a>
-
+			      <img src="resources/images/logo_eni_encheres.png" alt="Logo ENI-Enchères" width="80" height="80" class="d-inline-block align-top">
+			    </a>
+        
 	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	            <span class="navbar-toggler-icon"></span>
 	        </button>
@@ -45,6 +46,11 @@
 	                        	<i class="fas fa-user"></i> Mon profil
                         	</a>
 	                    </li>
+                      <li class="nav-item">
+                          <a class="nav-link btn ml-2" href="article-vendu">
+                            <i class="fas fa-tags"></i> Mettre un article en vente
+                          </a>
+                      </li>
 	                    <li class="nav-item">
 	                        <a class="nav-link btn ml-2" href="deconnection">
 	                        	<i class="fas fa-sign-out-alt"></i> Deconnexion

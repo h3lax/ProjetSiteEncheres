@@ -11,6 +11,11 @@
 <link href="resources/css/lux.min.css" rel="stylesheet">
 </head>
 <body>
+<header class="En-tête">
+    <a href="accueil.jsp" target="_self">
+    <img class="Logo" src="images/logo_eni_encheres2.png" alt="Logo ENI Enchères">
+    </a>
+    </header>
 
 	<div class="container mt-5">
 	    <h1 class="text-center mb-4">Profil de ${utilisateurConsulte.getPseudo()}</h1>
