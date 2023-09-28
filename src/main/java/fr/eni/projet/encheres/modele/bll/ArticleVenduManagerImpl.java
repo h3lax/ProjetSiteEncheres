@@ -13,4 +13,16 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	    articleVendu.setNoArticle(generatedId);
 	}
 
+	@Override
+	public boolean updatePrixVente(ArticleVendu articleVendu, int montantEnchere) {
+		articleVendu.setPrixVente(montantEnchere);
+		if(dao.update(articleVendu) == 1 ) return true;
+		else return false;
+	}
+
+	@Override
+	public ArticleVendu selectById(int idArticle) {
+		return dao.selectById(idArticle);
+	}
+
 }
