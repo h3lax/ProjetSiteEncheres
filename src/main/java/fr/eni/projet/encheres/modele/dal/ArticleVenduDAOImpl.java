@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projet.encheres.modele.bo.ArticleVendu;
-import fr.eni.projet.encheres.modele.bo.Enchere;
 
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	

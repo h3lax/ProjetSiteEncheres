@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import fr.eni.projet.encheres.modele.bo.ArticleVendu;
 import fr.eni.projet.encheres.modele.bo.Enchere;
-import fr.eni.projet.encheres.modele.bo.Utilisateur;
 
 public class EnchereDAOImpl implements EnchereDAO {
 
