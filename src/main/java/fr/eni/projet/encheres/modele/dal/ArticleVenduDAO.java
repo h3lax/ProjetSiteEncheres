@@ -12,4 +12,5 @@ public interface ArticleVenduDAO {
 	public int update(ArticleVendu articleVendu);
 
 	public ArticleVendu selectById(int idArticle);
+
 }

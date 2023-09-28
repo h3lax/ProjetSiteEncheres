@@ -20,13 +20,7 @@ public class TESTCESTCHAUD extends HttpServlet {
 	private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance();    
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utilisateur utilisateur = utilisateurManager.selectByIndentifiant("Test1");
-		utilisateur.setCredit(200);
-		int montantEnchere = 150;
-		System.out.println(utilisateur);
-		if (utilisateurManager.paiement(utilisateur, montantEnchere)) System.out.println("ça marche");
-		else System.out.println("ça marche pas");;
-		System.out.println(utilisateur);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
