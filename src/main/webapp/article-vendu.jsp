@@ -16,7 +16,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
 	    <div class="container-fluid">
-	        <a class="navbar-brand ml-3" href="#">
+	        <a class="navbar-brand ml-3" href="accueil.jsp">
 			    <img src="resources/images/logo_eni_encheres.png" alt="Logo ENI-Enchères" width="80" height="80" class="d-inline-block align-top">
 			</a>
 
