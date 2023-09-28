@@ -41,7 +41,17 @@ public class InscriptionServlet extends HttpServlet {
 		String ville = request.getParameter("ville");
 		String confirmation = request.getParameter("confirmation");
 		
-		
+		//conserve les infos en cas d'érreur
+		request.setAttribute("pseudoValue", pseudo);
+        request.setAttribute("prenomValue", prenom);
+        request.setAttribute("telephoneValue", telephone);
+        request.setAttribute("codePostalValue", codePostal);
+        request.setAttribute("motDePasseValue", motDePasse);
+        request.setAttribute("nomValue", nom);
+        request.setAttribute("emailValue", email);
+        request.setAttribute("rueValue", rue);
+        request.setAttribute("villeValue", ville);
+        request.setAttribute("confirmationValue", confirmation);
 		
 		switch (utilisateurManager.verifNouvelUtilisateur(pseudo, email)) {
 			case 0 : 	boolean champsRemplits = utilisateurManager.verifChampsRemplits(pseudo, nom, prenom, email, rue, codePostal, ville, motDePasse);
