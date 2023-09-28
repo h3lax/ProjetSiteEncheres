@@ -45,8 +45,8 @@ public class EncherirServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Je récupère un Article Je sais pas trop comment ici je met un default
-		int idArticle = 1;
-		ArticleVendu articleVendu = articleVenduManager.selectById(idArticle);
+		int noArticle=Integer.parseInt(request.getParameter("noArticle"));
+		ArticleVendu articleVendu = articleVenduManager.selectById(noArticle);
 		
 		//Je récupère l'utilisateur en session
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
@@ -69,6 +69,9 @@ public class EncherirServlet extends HttpServlet {
 			request.setAttribute("message", message);
 			this.getServletContext().getRequestDispatcher("/detail-article.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
 		} else {
+			//Methode pour "remporter enchere" 
+			boolean remporte= enchereManager.remporterEnchere(articleVendu.getNoArticle(),utilisateur.getNoUtilisateur(),montantEnchere);
+			
 			//Je vais chercher l'enchère précédente AVANT d'avoir créé mon enchère couillon!
 			Enchere ancienneEnchere = enchereManager.verifEnchereExistante(articleVendu);
 			//Ensuite je crée l'enchère en BD

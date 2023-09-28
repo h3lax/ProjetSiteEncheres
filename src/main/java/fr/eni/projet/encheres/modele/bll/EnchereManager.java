@@ -16,4 +16,8 @@ public interface EnchereManager {
 
 	boolean deleteEnchere(Utilisateur utilisateur, ArticleVendu articleVendu);
 
+	
+
+	boolean remporterEnchere(int noArticle, int noUtilisateur, int montantEnchere);
+
 }

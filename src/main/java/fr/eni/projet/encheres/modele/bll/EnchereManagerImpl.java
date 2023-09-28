@@ -12,6 +12,7 @@ public class EnchereManagerImpl implements EnchereManager{
 
 	private static EnchereManager enchereManager = null;
 	private static EnchereDAO enchereDAO = DAOFactory.getEnchereDAO();
+	private ArticleVenduManager articleVenduManager=ArticleVenduManagerSing.getInstance();
 	
 	public static EnchereManager getInstance() {
 		if (enchereManager == null) {
@@ -66,6 +67,33 @@ public class EnchereManagerImpl implements EnchereManager{
 		else return false;
 	}
 	
-	
+	 @Override
+	    public boolean remporterEnchere(int noArticle, int noUtilisateur, int montantEnchere) {
+	        // Récupérer l'article de l'enchère
+	        ArticleVendu article = articleVenduManager.selectById(noArticle);
+
+	        // Vérifier si l'utilisateur peut remporter l'enchère
+	        if (article == null || article.getDateFinEncheres().isBefore(LocalDateTime.now())) {
+	            // L'enchère n'est plus disponible
+	            return false;
+	        }
+
+	        // Récupérer le montant de l'enchère actuelle (le montant maximum)
+	        int montantMaximum = enchereDAO.getMontantMaximumEnchere(noArticle);
+
+	        // Vérifier si le montant de l'enchère proposée est supérieur au montant maximum
+	        if (montantEnchere > montantMaximum) {
+	            // Mettre à jour la base de données avec la nouvelle enchère
+	            boolean miseAJourReussie = enchereDAO.enregistrerEnchere(noArticle, noUtilisateur, montantEnchere);
+
+	            if (miseAJourReussie) {
+	                // Mettre à jour le montant de vente de l'article
+	                articleVenduManager.updatePrixVente(article, montantEnchere);
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
 	
 }
+
