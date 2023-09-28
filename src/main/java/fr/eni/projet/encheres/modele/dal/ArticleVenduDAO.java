@@ -8,4 +8,8 @@ public interface ArticleVenduDAO {
 	public int insert(ArticleVendu articleVendu);
 	
 	public List<ArticleVendu> listerEncheresEnCours();
+
+	public int update(ArticleVendu articleVendu);
+
+	public ArticleVendu selectById(int idArticle);
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projet.encheres.modele.bo.ArticleVendu;
+import fr.eni.projet.encheres.modele.bo.Enchere;
 
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
@@ -95,6 +96,60 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	    }
 
 	    return encheresEnCours;
+	}
+
+
+	@Override
+	public int update(ArticleVendu articleVendu) {
+		int ligneModifie = 0;
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			String requete = "UPDATE Articles_vendus SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, etat_vente = ?, no_categorie = ? WHERE no_article = ?";
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			pstmt.setString(1, articleVendu.getNomArticle());
+			pstmt.setString(2, articleVendu.getDescription());
+			pstmt.setTimestamp(3, Timestamp.valueOf(articleVendu.getDateDebutEncheres()));
+			pstmt.setTimestamp(4, Timestamp.valueOf(articleVendu.getDateFinEncheres()));
+			pstmt.setInt(5, articleVendu.getPrixInitial());
+			pstmt.setInt(6, articleVendu.getPrixVente());
+			pstmt.setString(7, articleVendu.getEtatVente());
+			pstmt.setInt(8, articleVendu.getNoCategorie());
+			pstmt.setInt(9, articleVendu.getNoArticle());
+			ligneModifie = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ligneModifie;
+	}
+
+
+	@Override
+	public ArticleVendu selectById(int idArticle) {
+		ArticleVendu enchere = new ArticleVendu();
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = cnx.prepareStatement("SELECT * FROM Articles_vendus WHERE no_article = ?");
+			stmt.setInt(1, idArticle);
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				enchere.setNoArticle(rs.getInt("no_article"));
+				enchere.setNomArticle(rs.getString("nom_article"));
+	            enchere.setDescription(rs.getString("description"));
+	            enchere.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
+	            enchere.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
+	            enchere.setPrixInitial(rs.getInt("prix_initial"));
+	            enchere.setPrixVente(rs.getInt("prix_vente"));
+	            enchere.setEtatVente(rs.getString("etat_vente"));
+	            enchere.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	            enchere.setNoCategorie(rs.getInt("no_categorie"));
+			} else enchere = null;
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return enchere;
 	}
 
 }

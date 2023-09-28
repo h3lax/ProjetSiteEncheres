@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projet.encheres.modele.bll.ArticleVenduManager;
+import fr.eni.projet.encheres.modele.bll.ArticleVenduManagerSing;
 import fr.eni.projet.encheres.modele.bll.EnchereManager;
 import fr.eni.projet.encheres.modele.bll.EnchereManagerImpl;
 import fr.eni.projet.encheres.modele.bll.UtilisateurManager;
@@ -25,7 +27,8 @@ import fr.eni.projet.encheres.modele.bo.Utilisateur;
 public class EncherirServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EnchereManager enchereManager = EnchereManagerImpl.getInstance();
-	private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance(); 
+	private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance();
+	private ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstance();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,12 +40,12 @@ public class EncherirServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Il me faut l'objet Article en fait ICI POUR TEST JEN CREE UN PAR DEFAUT
-		ArticleVendu articleVendu = new ArticleVendu("Bouteille", "c est une bouteille classique", LocalDateTime.now(), LocalDateTime.parse("2023-09-28", DateTimeFormatter.ISO_LOCAL_DATE_TIME), 100, 100, "en vente", 1, 1);
-		articleVendu.setNoArticle(1);
+		//Je récupère un Article Je sais pas trop comment ici je met un default
+		int idArticle = 1;
+		ArticleVendu articleVendu = articleVenduManager.selectById(idArticle);
+		
 		//Je récupère l'utilisateur en session
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
-
 		//Récupération des paramètres pour créer l'enchère
 		int montantEnchere = Integer.parseInt(request.getParameter("prixEnchere"));
 		
@@ -52,34 +55,35 @@ public class EncherirServlet extends HttpServlet {
 		if (!enchereManager.verifPrixSuperieur(montantEnchere, articleVendu.getPrixVente())) {
 			message = "Vous devez indiquer un prix supérieur au prix de vente actuel pour valider votre enchère";
 			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/article-vendu.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
+			this.getServletContext().getRequestDispatcher("/testEncherir.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
 		}
 		
 		//il me faut une fonction pour retirer les points de l'utilisateur qui enchérit
-			//Dabord je vérifie que le montant de l'enchère est supérieure aux points dont l'utilisateur est en possession
-		utilisateurManager.verifPoints(utilisateur, montantEnchere);
-		if (!utilisateurManager.verifPoints(utilisateur, montantEnchere)) {
+		//Dabord je vérifie que le montant de l'enchère est supérieure aux points dont l'utilisateur est en possession
+		else if (!utilisateurManager.verifPoints(utilisateur, montantEnchere)) {
 			message = "Désolé, mais vous n'avez pas suffisement de crédit pour placer cette enchère";
 			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/article-vendu.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
-		}
-			//Ensuite je crée l'enchère en BD
-				//Attention, si l'utilisateur a déjà enchéri il faut supprimer son ancienne enchère avant car le couple noarticle et noUser est unique
-				//Pour pouvoir en créer une nouvelle ensuite creer enchère gère tout d'un coup
-		if(enchereManager.creerEnchere(utilisateur, articleVendu, montantEnchere) != null) {
-			//Si c'est bon, je modifie alors les crédits de l'utilisateur & j'actualise le prixVente de l'article
-			utilisateurManager.paiement(utilisateur, montantEnchere);
-			//NE PAS OUBLIER DE MODIFIER LE PRIX DE VENTE DE LARTICLE
-			//Je vais chercher l'enchère précédente s'il y en a une et je rembourse l'ancien enchereur
-			Enchere ancienneEnchere = enchereManager.verifEnchereExistante(articleVendu);
-			if (ancienneEnchere != null) utilisateurManager.credit(ancienneEnchere.getNoUtilisateur(), ancienneEnchere.getMontantEnchere());
-			this.getServletContext().getRequestDispatcher("/testEnchere.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/testEncherir.jsp").forward(request, response); //Rajouter le message d'erreur quand la page sera faite
 		} else {
-			message = "Nous avons rencontré un problème lors de la création de votre enchère";
-			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/article-vendu.jsp").forward(request, response);
+			//Je vais chercher l'enchère précédente AVANT d'avoir créé mon enchère couillon!
+			Enchere ancienneEnchere = enchereManager.verifEnchereExistante(articleVendu);
+			//Ensuite je crée l'enchère en BD
+			//Attention, si l'utilisateur a déjà enchéri il faut supprimer son ancienne enchère avant car le couple noarticle et noUser est unique
+			//Pour pouvoir en créer une nouvelle ensuite creer enchère gère tout d'un coup
+			if(enchereManager.creerEnchere(utilisateur, articleVendu, montantEnchere) != null) {
+				//Si c'est bon, je modifie alors les crédits de l'utilisateur & j'actualise le prixVente de l'article
+				utilisateurManager.paiement(utilisateur, montantEnchere);
+				//On oublie pas de modifier le prix de vente de l'article pour qu'il soit à jour
+				articleVenduManager.updatePrixVente(articleVendu, montantEnchere);
+				//Je vais chercher l'enchère précédente que j'ai mémorisé, s'il y en a une et je rembourse l'ancien enchereur
+				if (ancienneEnchere != null) utilisateurManager.credit(ancienneEnchere.getNoUtilisateur(), ancienneEnchere.getMontantEnchere());
+				this.getServletContext().getRequestDispatcher("/testEnchere.jsp").forward(request, response);
+			} else {
+				message = "Nous avons rencontré un problème lors de la création de votre enchère";
+				request.setAttribute("message", message);
+				this.getServletContext().getRequestDispatcher("/testEncherir.jsp").forward(request, response);
+			}
 		}
-		
 	}
 
 }
