@@ -13,40 +13,36 @@ import fr.eni.projet.encheres.modele.bo.Utilisateur;
 
 @WebServlet("/connection")
 public class ConnectionServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance();
+	private static final long serialVersionUID = 1L;
+	private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/connection.jsp").forward(request, response);
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher("/connection.jsp").forward(request, response);
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String identifiant = request.getParameter("id");
-        String motDePasse = request.getParameter("mdp");
-        
-        Utilisateur utilisateur = utilisateurManager.connection(identifiant, motDePasse);
-        if (utilisateur != null) {
-            HttpSession session = request.getSession();
-            
-            // Ajoutez la marque de temps actuelle à la session
-            session.setAttribute("lastActivityTime", System.currentTimeMillis());
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String identifiant = request.getParameter("id");
+		String motDePasse = request.getParameter("mdp");
 
-            // Définir un temps de session (par exemple, 5 minutes)
-            session.setMaxInactiveInterval(300); // en secondes
+		// Récupérez la session actuelle de l'utilisateur
+		HttpSession session = request.getSession(true);
 
-            request.getSession().setAttribute("utilisateur", utilisateur);
-            this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
-        } else {
-            String erreurID = "Identifiant ou mot de passe inconnu";
-            request.setAttribute("erreurID", erreurID);
-            this.getServletContext().getRequestDispatcher("/connection.jsp").forward(request, response);
-        }
-        
-        // Vérifiez si la session a expiré en raison de l'inactivité
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("utilisateur") == null) {
-            // L'utilisateur n'est pas connecté (session expirée)
-            response.sendRedirect("/deconnection.jsp"); // Redirection vers la page de déconnexion
-        }
-    }
+		Utilisateur utilisateur = utilisateurManager.connection(identifiant, motDePasse);
+		if (utilisateur != null) {
+			// Ajoutez la marque de temps actuelle à la session
+			session.setAttribute("lastActivityTime", System.currentTimeMillis());
+
+			// Définir un temps de session en secondes
+
+			session.setMaxInactiveInterval(300);
+			request.getSession().setAttribute("utilisateur", utilisateur);
+			this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
+		} else {
+			String erreurID = "Identifiant ou mot de passe inconnu";
+			request.setAttribute("erreurID", erreurID);
+			this.getServletContext().getRequestDispatcher("/connection.jsp").forward(request, response);
+		}
+	}
 }
