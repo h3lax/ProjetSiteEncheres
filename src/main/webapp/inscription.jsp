@@ -31,47 +31,47 @@
 	
 	                <div class="form-group">
 	                    <label for="prenom">Prénom*</label>
-	                    <input type="text" id="prenom" name="prenom" required maxlength="30" class="form-control">
+	                    <input type="text" id="prenom" name="prenom" required maxlength="30" class="form-control" value="${prenomValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="telephone">Téléphone</label>
-	                    <input type="tel" id="telephone" name="telephone" maxlength="15" class="form-control">
+	                    <input type="tel" id="telephone" name="telephone" maxlength="15" class="form-control"value="${telephoneValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="codePostal">Code Postal*</label>
-	                    <input type="text" id="codePostal" name="codePostal" required maxlength="10" class="form-control">
+	                    <input type="text" id="codePostal" name="codePostal" required maxlength="10" class="form-control"value="${codePostalValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="nom">Nom*</label>
-	                    <input type="text" id="nom" name="nom" required maxlength="30" class="form-control">
+	                    <input type="text" id="nom" name="nom" required maxlength="30" class="form-control"value="${nomValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="email">Email*</label>
-	                    <input type="email" id="email" name="email" required maxlength="20" class="form-control">
+	                    <input type="email" id="email" name="email" required maxlength="20" class="form-control"value="${emailValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="rue">Rue*</label>
-	                    <input type="text" id="rue" name="rue" required maxlength="30" class="form-control">
+	                    <input type="text" id="rue" name="rue" required maxlength="30" class="form-control"value="${rueValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="ville">Ville*</label>
-	                    <input type="text" id="ville" name="ville" required maxlength="30" class="form-control">
+	                    <input type="text" id="ville" name="ville" required maxlength="30" class="form-control"value="${villeValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="motDePasse">Mot de passe*</label>
-	                    <input type="password" id="motDePasse" name="motDePasse" required maxlength="30" class="form-control">
+	                    <input type="password" id="motDePasse" name="motDePasse" required maxlength="30" class="form-control"value="${motDePasseValue}">
 	                </div>
 	
 	                <div class="form-group">
 	                    <label for="confirmation">Confirmation*</label>
-	                    <input type="password" id="confirmation" name="confirmation" required maxlength="30" class="form-control">
+	                    <input type="password" id="confirmation" name="confirmation" required maxlength="30" class="form-control"value="${confirmationValue}">
 	                </div>
 	
 	                <div class="text-center">

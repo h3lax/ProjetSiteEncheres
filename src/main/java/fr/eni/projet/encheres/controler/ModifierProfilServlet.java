@@ -26,6 +26,15 @@ public class ModifierProfilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		request.setAttribute("prenom",utilisateur.getPrenom());
+		request.setAttribute("nom",utilisateur.getNom());
+		request.setAttribute("rue",utilisateur.getRue());
+		request.setAttribute("ville",utilisateur.getVille());
+		request.setAttribute("telephone",utilisateur.getTelephone());
+		request.setAttribute("codePostal",utilisateur.getCodePostal());
+		
 		this.getServletContext().getRequestDispatcher("/modifier-profil.jsp").forward(request, response);
 	}
 
