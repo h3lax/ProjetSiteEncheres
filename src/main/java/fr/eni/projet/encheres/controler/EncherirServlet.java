@@ -27,13 +27,13 @@ public class EncherirServlet extends HttpServlet {
 	private EnchereManager enchereManager = EnchereManagerImpl.getInstance();
 	private UtilisateurManager utilisateurManager = UtilisateurManagerImpl.getInstance();
 	private ArticleVenduManager articleVenduManager = ArticleVenduManagerSing.getInstance();
-
+	private ArticleVendu articleVendu = new ArticleVendu();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int noArticle = Integer.parseInt(request.getParameter("noArticle"));
-		ArticleVendu articleVendu = articleVenduManager.selectById(noArticle);
+		articleVendu = articleVenduManager.selectById(noArticle);
 		Utilisateur vendeur = utilisateurManager.selectByIndentifiant(articleVendu.getNoUtilisateur());
 		request.setAttribute("article", articleVendu);
 		request.setAttribute("vendeur", vendeur);
@@ -44,9 +44,6 @@ public class EncherirServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Je récupère un l'identifiant de l'article depuis la requête http
-		int idArticle = Integer.parseInt(request.getParameter("noArticle"));
-		ArticleVendu articleVendu = articleVenduManager.selectById(idArticle);
 		
 		//Je récupère l'utilisateur en session
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");

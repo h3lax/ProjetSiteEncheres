@@ -67,6 +67,8 @@
 	                    <label for="mdp">Mot de passe :</label>
 	                    <input type="password" id="mdp" name="mdp" class="form-control">
 	                </div>
+	                <label for="rememberMe">Se souvenir de moi :</label>
+        			<input type="checkbox" id="rememberMe" name="rememberMe">
 	                <div class="form-group">
 	                    <input type="submit" value="Connexion" class="btn btn-primary btn-block">
 	                </div>
