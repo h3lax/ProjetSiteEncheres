@@ -31,7 +31,7 @@ public class ConnectionServlet extends HttpServlet {
         	//Création d'une session pour stocker les infos de l'utilisateur
         	HttpSession session = request.getSession(true);
             session.setAttribute("userLoggedIn", true);
-            response.sendRedirect("accueil.jsp");
+            this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
         } else {             
 	        Utilisateur utilisateur = utilisateurManager.connection(identifiant, motDePasse);
 	        if (utilisateur != null) {
@@ -44,12 +44,11 @@ public class ConnectionServlet extends HttpServlet {
 	            session.setMaxInactiveInterval(300); // en secondes
 	
 	            request.getSession().setAttribute("utilisateur", utilisateur);
-	            this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
+	            this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 	        } else {
 	            String erreurID = "Identifiant ou mot de passe inconnu";
 	            request.setAttribute("erreurID", erreurID);
 	            this.getServletContext().getRequestDispatcher("/connection.jsp").forward(request, response);
-	            request.getRequestDispatcher("/c.jsp").forward(request, response);
 	        }
 	        
 	        // Vérifiez si la session a expiré en raison de l'inactivité
