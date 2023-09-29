@@ -44,8 +44,8 @@ public class EncherirServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Je récupère un Article Je sais pas trop comment ici je met un default
-		int idArticle = 1;
+		//Je récupère un l'identifiant de l'article depuis la requête http
+		int idArticle = Integer.parseInt(request.getParameter("noArticle"));
 		ArticleVendu articleVendu = articleVenduManager.selectById(idArticle);
 		
 		//Je récupère l'utilisateur en session

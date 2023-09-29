@@ -7,7 +7,7 @@ import fr.eni.projet.encheres.modele.bo.ArticleVendu;
 public interface ArticleVenduDAO {
 	public int insert(ArticleVendu articleVendu);
 	
-	public List<ArticleVendu> listerEncheresEnCours();
+	public List<ArticleVendu> listerEncheresEnCours(List<String> pseudosVendeurs);
 
 	public int update(ArticleVendu articleVendu);
 

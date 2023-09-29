@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Vendre un article</title>
 	<!-- Bootstrap core CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootswatch theme -->
-  <link href="resources/css/lux.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+ 	<!-- Bootswatch theme -->
+ 	<link href="resources/css/lux.min.css" rel="stylesheet">
+ 	<!-- Font Awesome -->
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 	<!-- Lien css -->
+    <link href="accueil.css" rel="stylesheet">
 </head>
+
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
@@ -54,7 +59,7 @@
 	    </div>
 	</nav>
 
-  <div class="container mt-5">
+  	<div class="container mt-5">
         <p class="text-muted">${message}</p>
     
         <h2 class="mb-4 text-center">Nouvelle mise en vente d'article</h2>
@@ -124,7 +129,7 @@
         </div>
     </div>
 
-  <!-- Bootstrap JS and jQuery -->
+  	<!-- Bootstrap JS and jQuery -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

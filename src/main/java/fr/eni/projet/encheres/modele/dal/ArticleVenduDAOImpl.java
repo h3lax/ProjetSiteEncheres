@@ -61,14 +61,13 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	
 	@Override
-	public List<ArticleVendu> listerEncheresEnCours() {
+	public List<ArticleVendu> listerEncheresEnCours(List<String> pseudosVendeurs) {
 	    List<ArticleVendu> encheresEnCours = new ArrayList<>();
 	    
-	    final String LISTER_ENCHERES_EN_COURS = "SELECT ARTICLES_VENDUS.*, UTILISATEURS.pseudo " + 
-								                "FROM ARTICLES_VENDUS " + 
-								                "JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur " +
-								                "WHERE date_fin_encheres > GETDATE() AND etat_vente = 'En cours'";
-
+	    final String LISTER_ENCHERES_EN_COURS = "SELECT ARTICLES_VENDUS.*, UTILISATEURS.pseudo " +
+	                                            "FROM ARTICLES_VENDUS " +
+	                                            "JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur " +
+	                                            "WHERE date_fin_encheres > GETDATE() AND etat_vente = 'En cours'";
 
 	    try (Connection cnx = ConnectionProvider.getConnection()) {
 	        PreparedStatement stmt = cnx.prepareStatement(LISTER_ENCHERES_EN_COURS);
@@ -76,6 +75,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	        while (rs.next()) {
 	            ArticleVendu enchere = new ArticleVendu();
+	            
+	            enchere.setNoArticle(rs.getInt("no_article"));
 	            enchere.setNomArticle(rs.getString("nom_article"));
 	            enchere.setDescription(rs.getString("description"));
 	            enchere.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
@@ -85,7 +86,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	            enchere.setEtatVente(rs.getString("etat_vente"));
 	            enchere.setNoUtilisateur(rs.getInt("no_utilisateur"));
 	            enchere.setNoCategorie(rs.getInt("no_categorie"));
-	            enchere.setPseudoVendeur(rs.getString("pseudo"));
+	            
+	            String pseudoVendeur = rs.getString("pseudo");
+	            pseudosVendeurs.add(pseudoVendeur);
+	            
 	            encheresEnCours.add(enchere);
 	        }
 	        rs.close();
@@ -96,6 +100,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	    return encheresEnCours;
 	}
+
 
 
 	@Override

@@ -14,9 +14,6 @@ public class ArticleVendu {
 	private int noUtilisateur;
 	private int noCategorie;
 	
-	// pseudo vendeur 
-	private String pseudoVendeur;
-	
 	public ArticleVendu() {
 	}
 
@@ -135,20 +132,13 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 	
-	public String getPseudoVendeur() {
-	    return pseudoVendeur;
-	}
-
-	public void setPseudoVendeur(String pseudoVendeur) {
-	    this.pseudoVendeur = pseudoVendeur;
-	}
 
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", prixInitial="
 				+ prixInitial + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", noUtilisateur="
-				+ noUtilisateur + ", noCategorie=" + noCategorie + ", pseudoVendeur=" + pseudoVendeur + "]";
+				+ noUtilisateur + ", noCategorie=" + noCategorie;
 	}
 
 }
