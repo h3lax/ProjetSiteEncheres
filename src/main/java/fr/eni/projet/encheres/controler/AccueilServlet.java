@@ -1,6 +1,7 @@
 package fr.eni.projet.encheres.controler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,9 +26,12 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVenduDAO();
+        List<String> pseudosVendeurs = new ArrayList<>();
+        
         try {
-            List<ArticleVendu> listeEncheres = articleVenduDAO.listerEncheresEnCours();
+            List<ArticleVendu> listeEncheres = articleVenduDAO.listerEncheresEnCours(pseudosVendeurs);
             request.setAttribute("listeEncheres", listeEncheres);
+            request.setAttribute("pseudosVendeurs", pseudosVendeurs);
             request.getRequestDispatcher("/accueil.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

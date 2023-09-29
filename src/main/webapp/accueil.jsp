@@ -13,15 +13,16 @@
     <link href="resources/css/lux.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Lien css -->
+    <link href="accueil.css" rel="stylesheet">
 </head>
 <body>
 
-
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
 	    <div class="container-fluid">
-	        <a class="navbar-brand ml-3" href="#">
-			      <img src="resources/images/logo_eni_encheres.png" alt="Logo ENI-Enchères" width="80" height="80" class="d-inline-block align-top">
-			    </a>
+	        <a class="navbar-brand ml-3" href="accueil">
+		      <img src="resources/images/logo_eni_encheres.png" alt="Logo ENI-Enchères" width="80" height="80" class="d-inline-block align-top">
+		    </a>
         
 	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	            <span class="navbar-toggler-icon"></span>
@@ -46,7 +47,7 @@
 	                        	<i class="fas fa-user"></i> Mon profil
                         	</a>
 	                    </li>
-                      <li class="nav-item">
+                      	<li class="nav-item">
                           <a class="nav-link btn ml-2" href="article-vendu">
                             <i class="fas fa-tags"></i> Mettre un article en vente
                           </a>
@@ -84,27 +85,29 @@
 	    
 	    <div class="row">
 	        <c:forEach items="${listeEncheres}" var="enchere" varStatus="loop">
-	            <div class="col-md-6 mb-4 mt-4">
-	                <div class="card shadow border-0">
-	                    <img src="path_to_image_or_placeholder.jpg" alt="" class="card-img-top">
-	                    <div class="card-body">
-	                        <h4 class="card-title">${enchere.nomArticle}</h4>
-	                        <p class="card-text"><strong>Prix :</strong> ${enchere.prixInitial} points</p>
-	                        <p class="card-text">
-							    <strong>Fin de l'enchère :</strong>
-							    ${fn:substring(enchere.dateFinEncheres, 8, 10)}/
-							    ${fn:substring(enchere.dateFinEncheres, 5, 7)}/
-							    ${fn:substring(enchere.dateFinEncheres, 0, 4)}
-							</p>
-	                        <p class="card-text"><strong>Vendeur :</strong> ${enchere.pseudoVendeur}</p>
-	                    </div>
-	                </div>
-	            </div>
-	            
-	            <c:if test="${loop.index % 2 == 1}">
-	                </div><div class="row">
-	            </c:if>
-	        </c:forEach>
+			    <div class="col-md-6 mb-4 mt-4">
+			        <a href="detail-article?noArticle=${enchere.noArticle}" class="card-link text-decoration-none">
+			            <div class="card shadow border-0 hover-shadow">
+			                <img src="path_to_image_or_placeholder.jpg" alt="" class="card-img-top">
+			                <div class="card-body">
+			                    <h4 class="card-title">${enchere.nomArticle}</h4>
+			                    <p class="card-text"><strong>Prix :</strong> ${enchere.prixInitial} points</p>
+			                    <p class="card-text">
+								    <strong>Fin de l'enchère :</strong>
+								    ${fn:substring(enchere.dateFinEncheres, 8, 10)}/
+								    ${fn:substring(enchere.dateFinEncheres, 5, 7)}/
+								    ${fn:substring(enchere.dateFinEncheres, 0, 4)}
+								</p>
+			                    <p class="card-text"><strong>Vendeur :</strong> ${pseudosVendeurs[loop.index]}</p>
+			                </div>
+			            </div>
+			        </a>
+			    </div>
+			    
+			    <c:if test="${loop.index % 2 == 1}">
+			        </div><div class="row">
+			    </c:if>
+			</c:forEach>
 	    </div>
 	</div>
 

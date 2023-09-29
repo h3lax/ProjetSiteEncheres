@@ -45,11 +45,6 @@ public class EncherirServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//Je récupère un Article Je sais pas trop comment ici je met un default
-//		int idArticle = 1;
-//		ArticleVendu articleVendu = articleVenduManager.selectById(idArticle);
-		//articleVendu = (ArticleVendu) request.getAttribute("article");
-		
 		//Je récupère l'utilisateur en session
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
 		//Récupération des paramètres pour créer l'enchère
