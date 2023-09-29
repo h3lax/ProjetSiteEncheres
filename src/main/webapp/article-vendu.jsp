@@ -21,7 +21,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
 	    <div class="container-fluid">
-	        <a class="navbar-brand ml-3" href="accueil.jsp">
+	        <a class="navbar-brand ml-3" href="accueil">
 			    <img src="resources/images/logo_eni_encheres.png" alt="Logo ENI-Enchères" width="80" height="80" class="d-inline-block align-top">
 			</a>
 
@@ -102,8 +102,8 @@
 		                    <option value="4">Sport & Loisirs</option>
 		                </select>
 		            </div>
-		            
-		            <p class="text-muted"><strong>Note :</strong> L'adresse de retrait utilisée sera votre adresse par défaut associée à votre compte.</p>
+		            <br>
+		            <p class="text-muted"><strong>Note :</strong> Par défaut, c'est votre adresse qui est associée à l'adresse de retrait </p>
 		
 		            <div class="form-group">
 		                <label for="rue">Rue :</label>

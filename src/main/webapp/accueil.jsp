@@ -91,7 +91,7 @@
 			                <img src="path_to_image_or_placeholder.jpg" alt="" class="card-img-top">
 			                <div class="card-body">
 			                    <h4 class="card-title">${enchere.nomArticle}</h4>
-			                    <p class="card-text"><strong>Prix :</strong> ${enchere.prixInitial} points</p>
+			                    <p class="card-text"><strong>Prix :</strong> ${enchere.prixVente} points</p>
 			                    <p class="card-text">
 								    <strong>Fin de l'enchère :</strong>
 								    ${fn:substring(enchere.dateFinEncheres, 8, 10)}/
