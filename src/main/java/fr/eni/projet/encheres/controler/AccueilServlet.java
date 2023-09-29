@@ -38,5 +38,19 @@ public class AccueilServlet extends HttpServlet {
          // TODO : faire la gestion des exceptions
         }
     }
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVenduDAO();
+        List<String> pseudosVendeurs = new ArrayList<>();
+        
+        try {
+            List<ArticleVendu> listeEncheres = articleVenduDAO.listerEncheresEnCours(pseudosVendeurs);
+            request.setAttribute("listeEncheres", listeEncheres);
+            request.setAttribute("pseudosVendeurs", pseudosVendeurs);
+            request.getRequestDispatcher("/accueil.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+         // TODO : faire la gestion des exceptions
+        }
+	}
 }

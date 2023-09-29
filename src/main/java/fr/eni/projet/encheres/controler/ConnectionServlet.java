@@ -35,7 +35,7 @@ public class ConnectionServlet extends HttpServlet {
         } else {             
 	        Utilisateur utilisateur = utilisateurManager.connection(identifiant, motDePasse);
 	        if (utilisateur != null) {
-	            HttpSession session = request.getSession();
+	            HttpSession session = request.getSession(true);
 	            
 	            // Ajoutez la marque de temps actuelle à la session
 	            session.setAttribute("lastActivityTime", System.currentTimeMillis());
@@ -51,12 +51,7 @@ public class ConnectionServlet extends HttpServlet {
 	            this.getServletContext().getRequestDispatcher("/connection.jsp").forward(request, response);
 	        }
 	        
-	        // Vérifiez si la session a expiré en raison de l'inactivité
-	        HttpSession session = request.getSession(false);
-	        if (session != null && session.getAttribute("utilisateur") == null) {
-	            // L'utilisateur n'est pas connecté (session expirée)
-	            response.sendRedirect("/deconnection.jsp"); // Redirection vers la page de déconnexion
-	        }
+	       
         }
 	}
 }
