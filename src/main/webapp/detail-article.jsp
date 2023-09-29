@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -75,13 +76,16 @@
                 <li class="list-group-item"><strong>Meilleure offre:</strong> ${article.getPrixVente()}</li>
                 <li class="list-group-item"><strong>Mise à prix:</strong> ${article.getPrixInitial()}</li>
                 <li class="list-group-item"><strong>Fin de l'enchère:</strong> ${article.getDateFinEncheres()}</li>
-                <li class="list-group-item"><strong>Vendeur:</strong> ${vendeur.getPseudo()}</li>
+                <li class="list-group-item"><strong>Vendeur:</strong> <a href="afficher-profil?pseudo=${vendeur.getPseudo()}" class="text-decoration-none">${vendeur.getPseudo()}</a></li>
             </ul>
             <form action="detail-article" method="post">
-			    <input type="hidden" name="noArticle" value="${article.getNoArticle()}">
-			    <label for="prixEnchere">Montant de votre enchère: </label>
-			    <input type="number" id="prixEnchere" name="prixEnchere">
-			    <button class="btn btn-primary">enchérir</button>
+			    <!-- <input type="hidden" name="noArticle" value="${article.getNoArticle()}">  On en a pas besoin ici mais c'est hyper stylé à savoir !!! ça peut être grave utile -->
+			    <c:if test="${sessionScope.utilisateur !=null }">
+			    	<label for="prixEnchere">Montant de votre enchère: </label>
+			    	<input type="number" id="prixEnchere" name="prixEnchere">
+			    	<button class="btn btn-primary">enchérir</button>
+			    </c:if>
+			    
 			</form>
             
             <p class="text-danger">${message}</p>
