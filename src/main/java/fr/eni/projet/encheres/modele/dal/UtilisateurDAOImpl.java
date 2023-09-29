@@ -15,9 +15,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			
-			PreparedStatement stmt = cnx.prepareStatement("INSERT INTO UTILISATEURS values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = cnx.prepareStatement("INSERT INTO UTILISATEURS values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
 			setUtilisateur(utilisateur, stmt);
+			stmt.setBoolean(11, false);
 			stmt.executeUpdate();
 			
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -145,6 +146,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		stmt.setString(8, utilisateur.getVille());
 		stmt.setString(9, utilisateur.getMotDePasse());
 		stmt.setInt(10, utilisateur.getCredit());
+		
 
 		
 	}
