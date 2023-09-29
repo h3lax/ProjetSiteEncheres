@@ -49,6 +49,11 @@
                         	</a>
 	                    </li>
 	                    <li class="nav-item">
+                          	<a class="nav-link btn ml-2" href="article-vendu">
+                            	<i class="fas fa-tags"></i> Mettre un article en vente
+                          	</a>
+                      	</li>
+	                    <li class="nav-item">
 	                        <a class="nav-link btn ml-2" href="deconnection">
 	                        	<i class="fas fa-sign-out-alt"></i> Deconnexion
                         	</a>
