@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="email" maxlength="20" value="${utilisateur.email}" class="form-control">
+                    <input type="email" id="email" name="email" maxlength="20" class="form-control">
                 </div>
             </div>
 
@@ -128,7 +128,7 @@
 
             <p class="text-danger"> ${erreurIdentifiant}${erreurMdp}<p>
             
-            <a href="accueil.jsp" class="btn btn-secondary">Annuler</a>
+            <a href="accueil" class="btn btn-secondary">Annuler</a>
             <button type="submit" value="enregistrer" name="action" class="btn btn-primary">Enregistrer</button>
             <button type="submit" value="supprimer" name="action" class="btn btn-danger">Supprimer mon compte</button>
         </form>
